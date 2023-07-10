@@ -8,3 +8,20 @@ main {
   border: 4px solid white;
   padding: 8px;
 }
+
+.answers {
+  margin: 3rem auto;
+  max-width: 90vw;
+  width: 50ch;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.answer {
+  display: flex; 
+  flex-basis: 50%;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5px;
+}
