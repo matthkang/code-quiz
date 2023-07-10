@@ -3,3 +3,8 @@ main {
   max-width: 90vw;
   width: 50ch;
 }
+
+.border {
+  border: 4px solid white;
+  padding: 8px;
+}
