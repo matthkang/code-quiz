@@ -7,9 +7,12 @@ var answerAEl = $('#answerA');
 var answerBEl = $('#answerB');
 var answerCEl = $('#answerC');
 var answerDEl = $('#answerD');
+
 // variable set when questions are displayed
 var correctAnswer;
 var correctAnswerEl;
+
+var incorrectAnswerEl;
 
 const questions = [
     {
@@ -72,8 +75,10 @@ function displayQuestions() {
 
     // index of correct answer
     var correctIndex = random.correct;
+    console.log("correct index: ", correctIndex);
     // text of correct answer
     correctAnswer = random.answers[correctIndex];
+    console.log("correct answer: ", correctAnswer);
 
     if (correctIndex === 0){
         correctAnswerEl = answerAEl;
@@ -100,6 +105,8 @@ function displayQuestions() {
 
 function nextQuestion() {
     setTimeout(function(){
+        correctAnswerEl.removeClass("btn-info");
+        incorrectAnswerEl.removeClass("btn-danger");
         displayQuestions();
     }, 1000);
 }
@@ -116,6 +123,7 @@ answerAEl.on('click', function() {
     // incorrect
     else {
         answerAEl.addClass('btn-danger');
+        incorrectAnswerEl = answerAEl;
         correctAnswerEl.addClass("btn-info");
         nextQuestion();
     }
@@ -131,6 +139,7 @@ answerBEl.on('click', function() {
     // incorrect
     else {
         answerBEl.addClass('btn-danger');
+        incorrectAnswerEl = answerBEl;
         correctAnswerEl.addClass("btn-info");
         nextQuestion();
     }
@@ -146,6 +155,7 @@ answerCEl.on('click', function() {
     // incorrect
     else {
         answerCEl.addClass('btn-danger');
+        incorrectAnswerEl = answerCEl;
         correctAnswerEl.addClass("btn-info");
         nextQuestion();
     }
@@ -160,7 +170,8 @@ answerDEl.on('click', function() {
     }
     // incorrect
     else {
-        answerBEl.addClass('btn-danger');
+        answerDEl.addClass('btn-danger');
+        incorrectAnswerEl = answerDEl;
         correctAnswerEl.addClass("btn-info");
         nextQuestion();
     }
