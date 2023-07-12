@@ -1,12 +1,16 @@
+// target element with class time
 var timeEl = document.querySelector(".time");
+// target element with id start-quiz-btn
 var startButtonEl = $('#start-quiz-btn');
 var titleEl = $('#title');
 var descEl = $('#description');
-var answers = $('.answers');
 var answerAEl = $('#answerA');
 var answerBEl = $('#answerB');
 var answerCEl = $('#answerC');
 var answerDEl = $('#answerD');
+
+// static element
+var answers = $('.answers');
 
 var mainEl = $('main');
 
@@ -14,9 +18,8 @@ var mainEl = $('main');
 var correctAnswer;
 var correctAnswerEl;
 
-var incorrectAnswerEl;
-
 var index;
+
 
 const questions = [
     {
@@ -67,16 +70,39 @@ function setTime() {
   }, 1000);
 }
 
+function createQuestions() {
+    var answerA = $('<div class="answer"></div>');
+    var answerAButton = $('<button class="btn btn-sm" id="answerA">Answer A</button>');
+    answerA.append(answerAButton);
+
+    var answerB = $('<div class="answer"></div>');
+    var answerBButton = $('<button class="btn btn-sm" id="answerB">Answer B</button>');
+    answerB.append(answerBButton);
+
+    var answerC = $('<div class="answer"></div>');
+    var answerCButton = $('<button class="btn btn-sm" id="answerC">Answer C</button>');
+    answerC.append(answerCButton);
+
+    var answerD = $('<div class="answer"></div>');
+    var answerDButton = $('<button class="btn btn-sm" id="answerD">Answer D</button>');
+    answerD.append(answerDButton);
+
+    answers.append(answerA);
+    answers.append(answerB);
+    answers.append(answerC);
+    answers.append(answerD);
+}
+
 function displayQuestions() {
     index = Math.floor(Math.random()*questions.length);
     // retrieve question with random index
     var random = questions[index];
 
     var question = random.question;
-    var answerA = random.answers[0];
-    var answerB = random.answers[1];
-    var answerC = random.answers[2];
-    var answerD = random.answers[3];
+    var answerAText = random.answers[0];
+    var answerBText = random.answers[1];
+    var answerCText = random.answers[2];
+    var answerDText = random.answers[3];
 
     // index of correct answer
     var correctIndex = random.correct;
@@ -84,6 +110,11 @@ function displayQuestions() {
     // text of correct answer
     correctAnswer = random.answers[correctIndex];
     console.log("correct answer: ", correctAnswer);
+
+    answerAEl = $('#answerA');
+    answerBEl = $('#answerB');
+    answerCEl = $('#answerC');
+    answerDEl = $('#answerD');
 
     if (correctIndex === 0){
         correctAnswerEl = answerAEl;
@@ -101,10 +132,10 @@ function displayQuestions() {
 
     titleEl.text(question);
 
-    answerAEl.text(answerA);
-    answerBEl.text(answerB);
-    answerCEl.text(answerC);
-    answerDEl.text(answerD);
+    answerAEl.text(answerAText);
+    answerBEl.text(answerBText);
+    answerCEl.text(answerCText);
+    answerDEl.text(answerDText);
 
 }
 
@@ -112,7 +143,7 @@ function endGame() {
     titleEl.text("Game Over");
     descEl.text("Your final score is: " + secondsLeft);
 
-    var form  = $("<form></form>");
+    var form  = $("<form id = 'highScoreForm'></form>");
     mainEl.append(form);
 
     var label = $('<label for="initials">Enter initials: </label>')
@@ -136,6 +167,12 @@ function endGame() {
     answerDEl.hide();
 }
 
+$(document).on("submit", "#highScoreForm", function(event) {
+    event.preventDefault();
+
+    console.log("submit button clicked");
+});
+
 // reset buttons to initial css
 function resetButtons(){
     answerAEl.removeClass().addClass("btn btn-sm");
@@ -155,7 +192,8 @@ function nextQuestion() {
 
 // TODO: subtract 10 seconds from timer on incorrect answer
 
-answerAEl.on('click', function() {
+$('.answers').on('click', '#answerA', function() {
+    console.log("clicked");
     // incorrect
     if (answerAEl !== correctAnswerEl){
         // make incorrect answer red
@@ -174,7 +212,7 @@ answerAEl.on('click', function() {
 
 
 
-answerBEl.on('click', function() {
+$('.answers').on('click', '#answerB', function() {
     // incorrect
     if (answerBEl !== correctAnswerEl){
         // make incorrect answer red
@@ -191,7 +229,7 @@ answerBEl.on('click', function() {
     }
 });
 
-answerCEl.on('click', function() {
+$('.answers').on('click', '#answerC', function() {
     // incorrect
     if (answerCEl !== correctAnswerEl){
         // make incorrect answer red
@@ -208,7 +246,7 @@ answerCEl.on('click', function() {
     }
 });
 
-answerDEl.on('click', function() {
+$('.answers').on('click', '#answerD', function() {
     // incorrect
     if (answerDEl !== correctAnswerEl){
         // make incorrect answer red
@@ -227,10 +265,11 @@ answerDEl.on('click', function() {
 
 startButtonEl.on('click', function () {
     setTime();
+    createQuestions();
     displayQuestions();
 
     // show answers
-    answers.show();
+    //answers.show();
 
     // hide 'start quiz' button and description
     startButtonEl.hide();
@@ -240,7 +279,7 @@ startButtonEl.on('click', function () {
 
 function init() {
     // hide answers at start
-    answers.hide();
+    //answers.hide();
 }
 
 init();
