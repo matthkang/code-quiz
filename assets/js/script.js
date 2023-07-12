@@ -8,11 +8,15 @@ var answerBEl = $('#answerB');
 var answerCEl = $('#answerC');
 var answerDEl = $('#answerD');
 
+var mainEl = $('main');
+
 // variable set when questions are displayed
 var correctAnswer;
 var correctAnswerEl;
 
 var incorrectAnswerEl;
+
+var index;
 
 const questions = [
     {
@@ -43,6 +47,7 @@ const questions = [
 ];
 
 var secondsLeft = 76;
+//var secondsLeft = 3;
 
 function setTime() {
   // Sets interval in variable
@@ -50,22 +55,22 @@ function setTime() {
     secondsLeft--;
     timeEl.textContent = secondsLeft;
 
-    if(secondsLeft === 0) {
+    // if no time left or no questions left
+    if(secondsLeft === 0 || questions.length === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls function to create and append image
-      sendMessage();
+      // End game, display final score, and show form to enter initials
+      console.log("end game");
+      endGame();
     }
 
   }, 1000);
 }
 
 function displayQuestions() {
-    var index = Math.floor(Math.random()*questions.length);
+    index = Math.floor(Math.random()*questions.length);
     // retrieve question with random index
     var random = questions[index];
-    // remove question from array to prevent dupes
-    questions.splice(index, 1);
 
     var question = random.question;
     var answerA = random.answers[0];
@@ -103,76 +108,119 @@ function displayQuestions() {
 
 }
 
+function endGame() {
+    titleEl.text("Game Over");
+    descEl.text("Your final score is: " + secondsLeft);
+
+    var form  = $("<form></form>");
+    mainEl.append(form);
+
+    var label = $('<label for="initials">Enter initials: </label>')
+    label.css('margin-right', '10px');
+    form.append(label);
+
+    var input = $('<input id="input"/>');
+    input.css('margin-right', '10px');
+    form.append(input);
+    
+    var submit = $('<button id="submit">Submit</button>');
+    submit.addClass('btn btn-sm btn-info');
+    form.append(submit);
+    
+
+    descEl.show();
+
+    answerAEl.hide();
+    answerBEl.hide();
+    answerCEl.hide();
+    answerDEl.hide();
+}
+
+// reset buttons to initial css
+function resetButtons(){
+    answerAEl.removeClass().addClass("btn btn-sm");
+    answerBEl.removeClass().addClass("btn btn-sm");
+    answerCEl.removeClass().addClass("btn btn-sm");
+    answerDEl.removeClass().addClass("btn btn-sm");
+}
+
+
 function nextQuestion() {
+    // set a delay to see correct/ incorrect answers before moving on to next question
     setTimeout(function(){
-        correctAnswerEl.removeClass("btn-info");
-        incorrectAnswerEl.removeClass("btn-danger");
+        resetButtons();
         displayQuestions();
     }, 1000);
 }
 
+// TODO: subtract 10 seconds from timer on incorrect answer
 
 answerAEl.on('click', function() {
-    var selectedAnswer = answerAEl.text();
-    //console.log(answerAEl.text());
-    // correct
-    if (answerAEl === correctAnswerEl){
-        correctAnswerEl.addClass("btn-info");
-        nextQuestion();
-    }
     // incorrect
-    else {
+    if (answerAEl !== correctAnswerEl){
+        // make incorrect answer red
         answerAEl.addClass('btn-danger');
-        incorrectAnswerEl = answerAEl;
-        correctAnswerEl.addClass("btn-info");
+    }
+
+    // make correct answer green
+    correctAnswerEl.addClass("btn-info");
+    
+    // remove question from array to prevent dupes
+    questions.splice(index, 1);
+    if (questions.length !== 0){
         nextQuestion();
     }
 });
 
+
+
 answerBEl.on('click', function() {
-    //console.log(answerBEl.text());
-    // correct
-    if (answerBEl === correctAnswerEl){
-        correctAnswerEl.addClass("btn-info");
-        nextQuestion();
-    }
     // incorrect
-    else {
+    if (answerBEl !== correctAnswerEl){
+        // make incorrect answer red
         answerBEl.addClass('btn-danger');
-        incorrectAnswerEl = answerBEl;
-        correctAnswerEl.addClass("btn-info");
+    }
+
+    // make correct answer green
+    correctAnswerEl.addClass("btn-info");
+
+    // remove question from array to prevent dupes
+    questions.splice(index, 1);
+    if (questions.length !== 0){
         nextQuestion();
     }
 });
 
 answerCEl.on('click', function() {
-    //console.log(answerCEl.text());
-    // correct
-    if (answerCEl === correctAnswerEl){
-        correctAnswerEl.addClass("btn-info");
-        nextQuestion();
-    }
     // incorrect
-    else {
+    if (answerCEl !== correctAnswerEl){
+        // make incorrect answer red
         answerCEl.addClass('btn-danger');
-        incorrectAnswerEl = answerCEl;
-        correctAnswerEl.addClass("btn-info");
+    }
+
+    // make correct answer green
+    correctAnswerEl.addClass("btn-info");
+
+    // remove question from array to prevent dupes
+    questions.splice(index, 1);
+    if (questions.length !== 0){
         nextQuestion();
     }
 });
 
 answerDEl.on('click', function() {
-    //console.log(answerDEl.text());
-    // correct
-    if (answerDEl === correctAnswerEl){
-        correctAnswerEl.addClass("btn-info");
-        nextQuestion();
-    }
     // incorrect
-    else {
+    if (answerDEl !== correctAnswerEl){
+        // make incorrect answer red
         answerDEl.addClass('btn-danger');
-        incorrectAnswerEl = answerDEl;
-        correctAnswerEl.addClass("btn-info");
+    }
+
+    // make correct answer green
+    correctAnswerEl.addClass("btn-info");
+    
+    // remove question from array to prevent dupes
+    questions.splice(index, 1);
+    if (questions.length !== 0){
         nextQuestion();
     }
 });
