@@ -11,7 +11,7 @@ var answerDEl = $('#answerD');
 
 // static element
 var answers = $('.answers');
-var highscoreList = $('.highscoreList');
+var highscoreList = $('#highscoreList');
 
 var mainEl = $('main');
 
@@ -71,7 +71,6 @@ function setTime() {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // End game, display final score, and show form to enter initials
-      console.log("end game");
       endGame();
     }
 
@@ -114,10 +113,10 @@ function displayQuestions() {
 
     // index of correct answer
     var correctIndex = random.correct;
-    console.log("correct index: ", correctIndex);
+    // console.log("correct index: ", correctIndex);
     // text of correct answer
     correctAnswer = random.answers[correctIndex];
-    console.log("correct answer: ", correctAnswer);
+    // console.log("correct answer: ", correctAnswer);
 
     answerAEl = $('#answerA');
     answerBEl = $('#answerB');
@@ -176,8 +175,6 @@ function endGame() {
 }
 
 function submitHighScore() {
-    console.log("in function");
-
     var initials = $('#input').val();
     highscore = secondsLeft;
 
@@ -189,40 +186,7 @@ function submitHighScore() {
 
     localStorage.setItem("highscore", JSON.stringify(highScoresArr));
     localStorage.setItem("initials", JSON.stringify(initialsArr));
-
-    console.log(highScoreLS);
-    console.log(initialsLS);
-
-    // var highscoreList = $('#highscoreList');
-
-    // var highscoreEntry = $('<li></li>');
-    // highscoreEntry.text(highScore + "-" + initials);
-    // highscoreList.append(highscoreEntry);
-
-    
 }
-
-// $(document).on("submit", "#highScoreForm", function(event) {
-//     event.preventDefault();
-//     var initials = $('#input').val();
-//     highscore = secondsLeft;
-//     localStorage.setItem("highscore", highscore);
-//     localStorage.setItem("initials", initials);
-//     console.log("submit button clicked");
-
-//     //window.location.replace("high-scores.html");
-
-//     // submitHighScore();
-
-//     // var highscoreList = $('#highscoreList');
-
-//     // var highscoreEntry = $('<li></li>');
-//     // highscoreEntry.text(highScore + "-" + initials);
-//     // highscoreList.append(highscoreEntry);
-
-//     // console.log(highScore + "-" + initials);
-
-// });
 
 // reset buttons to initial css
 function resetButtons(){
@@ -243,7 +207,6 @@ function nextQuestion() {
 
 
 $('.answers').on('click', '#answerA', function() {
-    console.log("clicked");
     // incorrect
     if (answerAEl !== correctAnswerEl){
         // make incorrect answer red
@@ -322,18 +285,13 @@ startButtonEl.on('click', function () {
     createQuestions();
     displayQuestions();
 
-    // show answers
-    //answers.show();
-
     // hide 'start quiz' button and description
     startButtonEl.hide();
     descEl.hide();
 
 });
 
-function init() {
-    // hide answers at start
-    //answers.hide();
-}
+clearScoresEL.on('click', function () {
+    highscoreList.empty();
+});
 
-init();
