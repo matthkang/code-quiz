@@ -11,6 +11,7 @@ var answerDEl = $('#answerD');
 
 // static element
 var answers = $('.answers');
+var highscoreList = $('.highscoreList');
 
 var mainEl = $('main');
 
@@ -19,6 +20,10 @@ var correctAnswer;
 var correctAnswerEl;
 
 var index;
+
+// local storage to store high scores
+var highScore = localStorage.getItem("highscore");
+var initials = localStorage.getItem("initials");
 
 
 const questions = [
@@ -49,8 +54,8 @@ const questions = [
     }
 ];
 
-var secondsLeft = 76;
-//var secondsLeft = 3;
+// var secondsLeft = 76;
+var secondsLeft = 1;
 
 function setTime() {
   // Sets interval in variable
@@ -143,7 +148,7 @@ function endGame() {
     titleEl.text("Game Over");
     descEl.text("Your final score is: " + secondsLeft);
 
-    var form  = $("<form id = 'highScoreForm'></form>");
+    var form  = $("<form onsubmit='submitHighScore()' action='high-scores.html' id = 'highScoreForm'></form>");
     mainEl.append(form);
 
     var label = $('<label for="initials">Enter initials: </label>')
@@ -167,11 +172,44 @@ function endGame() {
     answerDEl.hide();
 }
 
-$(document).on("submit", "#highScoreForm", function(event) {
-    event.preventDefault();
+function submitHighScore() {
+    console.log("in function");
 
-    console.log("submit button clicked");
-});
+    var initials = $('#input').val();
+    highscore = secondsLeft;
+    localStorage.setItem("highscore", highscore);
+    localStorage.setItem("initials", initials);
+
+    // var highscoreList = $('#highscoreList');
+
+    // var highscoreEntry = $('<li></li>');
+    // highscoreEntry.text(highScore + "-" + initials);
+    // highscoreList.append(highscoreEntry);
+
+    
+}
+
+// $(document).on("submit", "#highScoreForm", function(event) {
+//     event.preventDefault();
+//     var initials = $('#input').val();
+//     highscore = secondsLeft;
+//     localStorage.setItem("highscore", highscore);
+//     localStorage.setItem("initials", initials);
+//     console.log("submit button clicked");
+
+//     //window.location.replace("high-scores.html");
+
+//     // submitHighScore();
+
+//     // var highscoreList = $('#highscoreList');
+
+//     // var highscoreEntry = $('<li></li>');
+//     // highscoreEntry.text(highScore + "-" + initials);
+//     // highscoreList.append(highscoreEntry);
+
+//     // console.log(highScore + "-" + initials);
+
+// });
 
 // reset buttons to initial css
 function resetButtons(){

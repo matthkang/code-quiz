@@ -23,3 +23,4 @@
 - https://stackoverflow.com/questions/22146904/jquery-onclick-add-margin-left
 - https://stackoverflow.com/questions/2326209/how-to-override-a-class-using-jquery
 - https://stackoverflow.com/questions/203198/event-binding-on-dynamically-created-elements
+- https://stackoverflow.com/questions/12887702/javascript-display-new-page-when-submit-html-form
