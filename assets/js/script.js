@@ -22,8 +22,11 @@ var correctAnswerEl;
 var index;
 
 // local storage to store high scores
-var highScore = localStorage.getItem("highscore");
-var initials = localStorage.getItem("initials");
+var highScoreLS = localStorage.getItem("highscore");
+var initialsLS = localStorage.getItem("initials");
+
+// clear high scores button
+var clearScoresEL = $('#clear-high-scores');
 
 
 const questions = [
@@ -54,8 +57,8 @@ const questions = [
     }
 ];
 
-var secondsLeft = 76;
-// var secondsLeft = 1;
+//var secondsLeft = 76;
+var secondsLeft = 1;
 
 function setTime() {
   // Sets interval in variable
@@ -64,7 +67,7 @@ function setTime() {
     timeEl.textContent = secondsLeft;
 
     // if no time left or no questions left
-    if(secondsLeft === 0 || questions.length === 0) {
+    if(secondsLeft <= 0 || questions.length === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // End game, display final score, and show form to enter initials
@@ -177,8 +180,18 @@ function submitHighScore() {
 
     var initials = $('#input').val();
     highscore = secondsLeft;
-    localStorage.setItem("highscore", highscore);
-    localStorage.setItem("initials", initials);
+
+    var highScoresArr = JSON.parse(localStorage.getItem("highscore"));
+    var initialsArr = JSON.parse(localStorage.getItem("initials"));
+
+    highScoresArr.push(highscore);
+    initialsArr.push(initials);
+
+    localStorage.setItem("highscore", JSON.stringify(highScoresArr));
+    localStorage.setItem("initials", JSON.stringify(initialsArr));
+
+    console.log(highScoreLS);
+    console.log(initialsLS);
 
     // var highscoreList = $('#highscoreList');
 
@@ -228,7 +241,6 @@ function nextQuestion() {
     }, 1000);
 }
 
-// TODO: subtract 10 seconds from timer on incorrect answer
 
 $('.answers').on('click', '#answerA', function() {
     console.log("clicked");
