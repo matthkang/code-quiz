@@ -292,6 +292,10 @@ startButtonEl.on('click', function () {
 });
 
 clearScoresEL.on('click', function () {
+    // clear from localstorage
+    localStorage.clear();
+
+    // clear array to update display
     highscoreList.empty();
 });
 
