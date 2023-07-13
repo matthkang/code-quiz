@@ -57,8 +57,7 @@ const questions = [
     }
 ];
 
-//var secondsLeft = 76;
-var secondsLeft = 1;
+var secondsLeft = 76;
 
 function setTime() {
   // Sets interval in variable
@@ -178,8 +177,15 @@ function submitHighScore() {
     var initials = $('#input').val();
     highscore = secondsLeft;
 
-    var highScoresArr = JSON.parse(localStorage.getItem("highscore"));
-    var initialsArr = JSON.parse(localStorage.getItem("initials"));
+    if (localStorage.getItem("highscore") !== null){
+        var highScoresArr = JSON.parse(localStorage.getItem("highscore"));
+        var initialsArr = JSON.parse(localStorage.getItem("initials"));
+    }
+    
+    else {
+        var highScoresArr = [];
+        var initialsArr = [];
+    }
 
     highScoresArr.push(highscore);
     initialsArr.push(initials);
