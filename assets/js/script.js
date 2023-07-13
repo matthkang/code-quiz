@@ -54,8 +54,8 @@ const questions = [
     }
 ];
 
-// var secondsLeft = 76;
-var secondsLeft = 1;
+var secondsLeft = 76;
+// var secondsLeft = 1;
 
 function setTime() {
   // Sets interval in variable
@@ -236,6 +236,7 @@ $('.answers').on('click', '#answerA', function() {
     if (answerAEl !== correctAnswerEl){
         // make incorrect answer red
         answerAEl.addClass('btn-danger');
+        secondsLeft-= 10;
     }
 
     // make correct answer green
@@ -255,6 +256,7 @@ $('.answers').on('click', '#answerB', function() {
     if (answerBEl !== correctAnswerEl){
         // make incorrect answer red
         answerBEl.addClass('btn-danger');
+        secondsLeft-= 10;
     }
 
     // make correct answer green
@@ -272,6 +274,7 @@ $('.answers').on('click', '#answerC', function() {
     if (answerCEl !== correctAnswerEl){
         // make incorrect answer red
         answerCEl.addClass('btn-danger');
+        secondsLeft-= 10;
     }
 
     // make correct answer green
@@ -289,6 +292,7 @@ $('.answers').on('click', '#answerD', function() {
     if (answerDEl !== correctAnswerEl){
         // make incorrect answer red
         answerDEl.addClass('btn-danger');
+        secondsLeft-= 10;
     }
 
     // make correct answer green
