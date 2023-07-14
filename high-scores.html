@@ -22,7 +22,7 @@
     <hr/>
     <ol id="highscoreList">
     </ol>
-    
+
   </main>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -32,11 +32,11 @@
         var highscoreList = $('#highscoreList');
 
         var parsedHighscore = JSON.parse(localStorage.getItem("highscore"));
-        var parsedInitials = JSON.parse(localStorage.getItem("initials"));
-        
+        //var parsedInitials = JSON.parse(localStorage.getItem("initials"));
+
         for (var i = 0; i < parsedHighscore.length; i++){
             var highscoreEntry = $('<li></li>');
-            highscoreEntry.text(parsedHighscore[i] + "-" + parsedInitials[i]);
+            highscoreEntry.text(parsedHighscore[i].score + "-" + parsedHighscore[i].initials);
             highscoreList.append(highscoreEntry);
         }   
     }

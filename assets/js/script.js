@@ -57,7 +57,8 @@ const questions = [
     }
 ];
 
-var secondsLeft = 76;
+// var secondsLeft = 76;
+var secondsLeft = 1;
 
 function setTime() {
   // Sets interval in variable
@@ -174,9 +175,10 @@ function endGame() {
 }
 
 function submitHighScore() {
-    var initials = $('#input').val();
-    highscore = secondsLeft;
+    var initials_val = $('#input').val();
+    var highscore = secondsLeft;
 
+    // if first time storing, create empty arrays, otherwise retrieve array from localStorage
     if (localStorage.getItem("highscore") !== null){
         var highScoresArr = JSON.parse(localStorage.getItem("highscore"));
         var initialsArr = JSON.parse(localStorage.getItem("initials"));
@@ -187,11 +189,46 @@ function submitHighScore() {
         var initialsArr = [];
     }
 
-    highScoresArr.push(highscore);
-    initialsArr.push(initials);
+    // create highscores object with score and initials properties
+    const highscores = {
+        score: highscore,
+        initials: initials_val,
+    };
 
+    let exists = false;
+
+    // see if entry for player's initials already exists
+    // if so, update entry with player's better score
+    for (var i = 0; i < highScoresArr.length; i++){
+        var entry = highScoresArr[i];
+        // if entry already exists for player's initial
+        if (Object.values(entry).indexOf(initials_val) > -1) {
+            console.log('has ', initials_val);
+            console.log("player was highscore: ", entry.score);
+            // only update if highscore is greater than the one in leaderboard
+            if (highscore > entry.score){
+                entry.score = highscore;
+            }
+            console.log("player is now highscore: ", entry.score);
+            exists = true;
+        }
+        
+    }
+
+    if (exists === false) {
+        highScoresArr.push(highscores);
+    }
+
+    // sort highscores from highest to lowest score
+    highScoresArr.sort(function(a, b) {
+        return ((a.score > b.score) ? -1 : ((a.initials == b.initials) ? 0 : 1));
+    });
+    
+    //initialsArr.push(initials_val);
+
+    //localStorage.setItem("highscore", JSON.stringify(highScoresArr));
+    //localStorage.setItem("initials", JSON.stringify(initialsArr));
     localStorage.setItem("highscore", JSON.stringify(highScoresArr));
-    localStorage.setItem("initials", JSON.stringify(initialsArr));
 }
 
 // reset buttons to initial css

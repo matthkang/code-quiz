@@ -17,10 +17,10 @@
 Below is a screenshot of the initial home page for the coding quiz application:
 ![Coding quiz home page](assets/images/quiz-home.png)
 
-Clicking 'Start Quiz' will start the timer and display questions. Choosing the wrong answer will display the correct answer in green and the selected wrong answer in red.
+Clicking 'Start Quiz' will start the timer and display questions. Choosing the wrong answer will display the correct answer in green and the selected wrong answer in red. Choosing a wrong answer will also deduct 10 seconds from the timer.
 ![Sample Question](assets/images/question.png)
 
-If the timer hits 0 or you have answered all the questions, the quiz is over and you are presented with your final score and an opportunity to save your initials and score to the leaderboard:
+If the timer hits 0 or you have answered all the questions, the quiz is over and you are presented with your final score and an opportunity to save your initials and score to the leaderboard. The leaderboard is sorted from highest score to lowest.
 ![Game over screen](assets/images/game-over.png)
 
 You can view the high scores at any time by clicking the 'View High Scores' from the home screen:
@@ -38,3 +38,4 @@ You can view the high scores at any time by clicking the 'View High Scores' from
 - https://stackoverflow.com/questions/3357553/how-do-i-store-an-array-in-localstorage
 - https://www.geeksforgeeks.org/how-to-store-an-array-in-localstorage/#
 - https://stackoverflow.com/questions/3262605/how-to-check-whether-a-storage-item-is-set
+- https://stackoverflow.com/questions/35948669/how-to-check-if-a-value-exists-in-an-object-using-javascript
